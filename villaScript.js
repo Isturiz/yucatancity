@@ -5,52 +5,48 @@ var fondo = {
   url: "tile.png",
   cargaOK: false
 }
-var chardri = {
-  url: "chardri-remove-resize-final.png",
-  //url: "gabo-remove-resize.png",
 
-  cargaOK: false
-};
-
-var gabo = {
+var personajes = {
+  
   url: "gabo-remove-resize-final.png",
   url1: "felix-remove-resize-final.png",
   url2: "lili01-remove-resize-final.png",
   url3: "mau-remove-resize-final.png",
   url4: "mari-remove-resize-final.png",
+  url5: "chardri-remove-resize-final.png",
 
   cargaOK: false
 }
 
-var cantidad = aleatorio(1, 10);
+var cantidad = aleatorio(1, 50);
 
 fondo.imagen = new Image();
 fondo.imagen.src = fondo.url;
 fondo.imagen.addEventListener("load", cargarFondo);
 
-chardri.imagen = new Image();
-chardri.imagen.src = chardri.url;
-chardri.imagen.addEventListener("load", cargarChardri);
+personajes.gabo = new Image();
+personajes.gabo.src = personajes.url;
+personajes.gabo.addEventListener("load", cargarPersonajes);
 
-gabo.imagen = new Image();
-gabo.imagen.src = gabo.url;
-gabo.imagen.addEventListener("load", cargarChardri);
+personajes.duko = new Image();
+personajes.duko.src = personajes.url1;
+personajes.duko.addEventListener("load", cargarPersonajes);
 
-gabo.duko = new Image();
-gabo.duko.src = gabo.url1;
-gabo.duko.addEventListener("load", cargarChardri);
+personajes.lili = new Image();
+personajes.lili.src = personajes.url2;
+personajes.lili.addEventListener("load", cargarPersonajes);
 
-gabo.lili = new Image();
-gabo.lili.src = gabo.url2;
-gabo.lili.addEventListener("load", cargarChardri);
+personajes.mau = new Image();
+personajes.mau.src = personajes.url3;
+personajes.mau.addEventListener("load", cargarPersonajes);
 
-gabo.mau = new Image();
-gabo.mau.src = gabo.url3;
-gabo.mau.addEventListener("load", cargarChardri);
+personajes.mari = new Image();
+personajes.mari.src = personajes.url4;
+personajes.mari.addEventListener("load", cargarPersonajes);
 
-gabo.mari = new Image();
-gabo.mari.src = gabo.url4;
-gabo.mari.addEventListener("load", cargarChardri);
+personajes.chardri = new Image();
+personajes.chardri.src = personajes.url5;
+personajes.chardri.addEventListener("load", cargarPersonajes);
 
 
 function cargarFondo()
@@ -58,12 +54,9 @@ function cargarFondo()
   fondo.cargaOK = true;
   dibujar();
 }
-function cargarChardri()
+function cargarPersonajes()
 {
-  chardri.cargaOK = true;
-  dibujar();
-
-  gabo.cargaOK = true;
+  personajes.cargaOK = true;
   dibujar();
 }
 
@@ -73,24 +66,50 @@ function dibujar()
   {
     papel.drawImage(fondo.imagen, 0, 0);
   }
-  if(chardri.cargaOK)
+  if(personajes.cargaOK)
   {
     console.log(cantidad);
     for(var v=0; v < cantidad; v++)
     {
-      var x = aleatorio(0, 7);
-      var y = aleatorio(0, 10);
-      var x = x * 60;
-      var y = y * 40;
-      papel.drawImage(chardri.imagen, x, y);
-      papel.drawImage(gabo.imagen, x+50, y+50);
-      papel.drawImage(gabo.duko, x+65, y-10);
-      papel.drawImage(gabo.lili, x-50, y+20);
-      papel.drawImage(gabo.mau, x-10, y+70);
-      papel.drawImage(gabo.mari, x+40, y+110);
+      dibujarPersonajesFor(personajes.gabo);
+    }
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.mau);
+    }
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.mari);
+    }
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.duko);
+    }
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.lili);
+    }
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.chardri);
     }
   }
 }
+function dibujarPersonajesFor(personajes)
+{
+  var x = aleatorio(-3, 7);
+  var y = aleatorio(-3, 10);
+  var x = x * 60;
+  var y = y * 40;
+  papel.drawImage(personajes, x, y);
+  /*
+  for(var v=0; v < cantidad; v++)
+    {
+      
+    }
+    */
+}
+
 function aleatorio(min, maxi)
 {
   var resultado;
