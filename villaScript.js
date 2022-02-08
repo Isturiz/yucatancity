@@ -7,7 +7,12 @@ btnReiniciar.addEventListener("click", reiniciar);
 function reiniciar()
 {
   dibujar();
+  //dibujarPersonajesFor();
 }
+
+document.addEventListener("mousedown", pulsarMouse);
+
+document.addEventListener("touchstart", pulsarTouch);
 
 var fondo = {
   url: "tile.png",
@@ -26,7 +31,7 @@ var personajes = {
   cargaOK: false
 }
 
-var cantidad = aleatorio(1, 1);
+var cantidad = aleatorio(1, 3);
 
 fondo.imagen = new Image();
 fondo.imagen.src = fondo.url;
@@ -97,13 +102,19 @@ function dibujar()
     {
       dibujarPersonajesFor(personajes.lili);
     }
-    for(var v=0; v < cantidad; v++)
-    {
+    // Sacado para testear a quién encontrar
+    
+    //for(var v=0; v < cantidad; v++)
+    //{
       
       dibujarPersonajesFor(personajes.chardri);
-    }
+    //}
+    
   }
 }
+ var xChardri = 0;
+ var yChardri = 0;
+
 function dibujarPersonajesFor(personajes)
 {
   var x = aleatorio(0, 7);
@@ -111,11 +122,52 @@ function dibujarPersonajesFor(personajes)
   var x = x * 60;
   var y = y * 40;
   papel.drawImage(personajes, x, y);
+  xChardri = x;
+  yChardri = y;
   if (x > 500 || y > 500)
   {
     alert("ERROR: hay una coordenada mayor a 500");
   }
   console.log("personajes: "+personajes+ ",  +x: " + x + ", " + "y: " + y );
+}
+
+function pulsarMouse(evento)
+{
+  var xLim_SUP = xChardri;
+  var yLim_SUP = yChardri;
+  var xLim_INF = xChardri + 80;
+  var yLim_INF = yChardri + 80;
+
+  var x = evento.offsetX;
+  var y = evento.offsetY;
+  console.log("SUP: " + xLim_SUP, yLim_SUP);
+  console.log("INF: " + xLim_INF, yLim_INF);
+  console.log(x, y);
+  if ((x > xLim_SUP && y > yLim_SUP) && (x < xLim_INF && y < yLim_INF))
+  {
+    console.log("GANASTE");
+    reiniciar();
+  }
+}
+
+function pulsarTouch(evento)
+{
+    var xLim_SUP = xChardri;
+    var yLim_SUP = yChardri;
+    var xLim_INF = xChardri + 80;
+    var yLim_INF = yChardri + 80;
+
+    var touch = evento.targetTouches[0];
+    var x = touch.clientX;
+    var y = touch.clientY;
+    console.log("SUP: " + xLim_SUP, yLim_SUP);
+    console.log("INF: " + xLim_INF, yLim_INF);
+    console.log(x, y);
+    if ((x > xLim_SUP && y > yLim_SUP) && (x < xLim_INF && y < yLim_INF))
+    {
+      console.log("GANASTE");
+      reiniciar();
+    }
 }
 
 function aleatorio(min, maxi)
