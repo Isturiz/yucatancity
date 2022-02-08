@@ -4,6 +4,8 @@ var papel = vp.getContext("2d");
 var btnReiniciar = document.getElementById("btnReiniciar");
 btnReiniciar.addEventListener("click", reiniciar);
 
+var esconder = false;
+
 function reiniciar()
 {
   dibujar();
@@ -27,6 +29,7 @@ var personajes = {
   url3: "mau-remove-resize-final.png",
   url4: "mari-remove-resize-final.png",
   url5: "chardri-remove-resize-final.png",
+  //escon: false,
 
   cargaOK: false
 }
@@ -73,6 +76,7 @@ function cargarPersonajes()
   dibujar();
 }
 
+
 function dibujar()
 {
   if(fondo.cargaOK)
@@ -84,51 +88,60 @@ function dibujar()
     console.log(cantidad);
     for(var v=0; v < cantidad; v++)
     {
-      dibujarPersonajesFor(personajes.gabo);
+      dibujarPersonajesFor(personajes.chardri, esconder);
     }
     for(var v=0; v < cantidad; v++)
     {
-      dibujarPersonajesFor(personajes.mau);
+      dibujarPersonajesFor(personajes.gabo, esconder);
+    }
+    esconder = true;
+    dibujarPersonajesFor(personajes.mau, esconder);
+    esconder = false;
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.mari, esconder);
+    }
+    
+    for(var v=0; v < cantidad; v++)
+    {
+      dibujarPersonajesFor(personajes.duko, esconder);
     }
     for(var v=0; v < cantidad; v++)
     {
-      dibujarPersonajesFor(personajes.mari);
-    }
-    for(var v=0; v < cantidad; v++)
-    {
-      dibujarPersonajesFor(personajes.duko);
-    }
-    for(var v=0; v < cantidad; v++)
-    {
-      dibujarPersonajesFor(personajes.lili);
+      dibujarPersonajesFor(personajes.lili, esconder);
     }
     // Sacado para testear a quién encontrar
     
     //for(var v=0; v < cantidad; v++)
     //{
       
-      dibujarPersonajesFor(personajes.chardri);
+      
     //}
     
   }
 }
- var xChardri = 0;
- var yChardri = 0;
+var xChardri = 0;
+var yChardri = 0;
 
-function dibujarPersonajesFor(personajes)
+function dibujarPersonajesFor(personajes, esconder)
 {
   var x = aleatorio(0, 7);
   var y = aleatorio(0, 10);
   var x = x * 60;
   var y = y * 40;
   papel.drawImage(personajes, x, y);
-  xChardri = x;
-  yChardri = y;
-  if (x > 500 || y > 500)
-  {
-    alert("ERROR: hay una coordenada mayor a 500");
+  
+  if (esconder == true)
+  { 
+    xChardri = x;
+    yChardri = y;
   }
+  
+  console.log(personajes);
+
+
   console.log("personajes: "+personajes+ ",  +x: " + x + ", " + "y: " + y );
+  esconder = false;
 }
 
 function pulsarMouse(evento)
@@ -143,6 +156,7 @@ function pulsarMouse(evento)
   console.log("SUP: " + xLim_SUP, yLim_SUP);
   console.log("INF: " + xLim_INF, yLim_INF);
   console.log(x, y);
+  console.log(xChardri, yChardri);
   if ((x > xLim_SUP && y > yLim_SUP) && (x < xLim_INF && y < yLim_INF))
   {
     console.log("GANASTE");
