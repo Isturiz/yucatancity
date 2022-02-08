@@ -1,6 +1,14 @@
 var vp = document.getElementById("yucatan");
 var papel = vp.getContext("2d");
 
+var btnReiniciar = document.getElementById("btnReiniciar");
+btnReiniciar.addEventListener("click", reiniciar);
+
+function reiniciar()
+{
+  dibujar();
+}
+
 var fondo = {
   url: "tile.png",
   cargaOK: false
@@ -18,7 +26,7 @@ var personajes = {
   cargaOK: false
 }
 
-var cantidad = aleatorio(1, 50);
+var cantidad = aleatorio(1, 1);
 
 fondo.imagen = new Image();
 fondo.imagen.src = fondo.url;
@@ -91,23 +99,23 @@ function dibujar()
     }
     for(var v=0; v < cantidad; v++)
     {
+      
       dibujarPersonajesFor(personajes.chardri);
     }
   }
 }
 function dibujarPersonajesFor(personajes)
 {
-  var x = aleatorio(-3, 7);
-  var y = aleatorio(-3, 10);
+  var x = aleatorio(0, 7);
+  var y = aleatorio(0, 10);
   var x = x * 60;
   var y = y * 40;
   papel.drawImage(personajes, x, y);
-  /*
-  for(var v=0; v < cantidad; v++)
-    {
-      
-    }
-    */
+  if (x > 500 || y > 500)
+  {
+    alert("ERROR: hay una coordenada mayor a 500");
+  }
+  console.log("personajes: "+personajes+ ",  +x: " + x + ", " + "y: " + y );
 }
 
 function aleatorio(min, maxi)
