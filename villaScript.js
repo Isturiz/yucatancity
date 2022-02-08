@@ -31,7 +31,7 @@ var personajes = {
   cargaOK: false
 }
 
-var cantidad = aleatorio(1, 3);
+var cantidad = aleatorio(30,40);
 
 fondo.imagen = new Image();
 fondo.imagen.src = fondo.url;
